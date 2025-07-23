@@ -1,13 +1,12 @@
 import { useState } from 'react';
+import CaseStudy from "./Components/CaseStudy.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div className='flex justify-center items-center h-[832px]'>
-        Admin Panel
-      </div>
+      <CaseStudy/>
     </>
   );
 }
