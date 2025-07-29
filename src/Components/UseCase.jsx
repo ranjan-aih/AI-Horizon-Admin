@@ -45,10 +45,20 @@ export default function AddUseCaseForm() {
     };
 
     const handleArrayChange = (arrayName, index, value) => {
-        setFormData(prev => ({
-            ...prev,
-            [arrayName]: prev[arrayName].map((item, i) => i === index ? value : item)
-        }));
+        if (arrayName === 'problemStatement.points') {
+            setFormData(prev => ({
+                ...prev,
+                problemStatement: {
+                    ...prev.problemStatement,
+                    points: prev.problemStatement.points.map((item, i) => i === index ? value : item)
+                }
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [arrayName]: prev[arrayName].map((item, i) => i === index ? value : item)
+            }));
+        }
     };
 
     const handleImpactChange = (index, field, value) => {
@@ -79,18 +89,40 @@ export default function AddUseCaseForm() {
     };
 
     const addArrayItem = (arrayName) => {
-        setFormData(prev => ({
-            ...prev,
-            [arrayName]: [...prev[arrayName], '']
-        }));
+        if (arrayName === 'problemStatement.points') {
+            setFormData(prev => ({
+                ...prev,
+                problemStatement: {
+                    ...prev.problemStatement,
+                    points: [...prev.problemStatement.points, '']
+                }
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [arrayName]: [...prev[arrayName], '']
+            }));
+        }
     };
 
     const removeArrayItem = (arrayName, index) => {
-        if (formData[arrayName].length > 1) {
-            setFormData(prev => ({
-                ...prev,
-                [arrayName]: prev[arrayName].filter((_, i) => i !== index)
-            }));
+        if (arrayName === 'problemStatement.points') {
+            if (formData.problemStatement.points.length > 1) {
+                setFormData(prev => ({
+                    ...prev,
+                    problemStatement: {
+                        ...prev.problemStatement,
+                        points: prev.problemStatement.points.filter((_, i) => i !== index)
+                    }
+                }));
+            }
+        } else {
+            if (formData[arrayName].length > 1) {
+                setFormData(prev => ({
+                    ...prev,
+                    [arrayName]: prev[arrayName].filter((_, i) => i !== index)
+                }));
+            }
         }
     };
 
